@@ -91,6 +91,10 @@ section { position: relative; }
 }
 .panel--photo .panel__body { padding: 20px 24px 24px; }
 
+.drive-info { display: block; font-size: 0.78rem; color: var(--ink-soft); margin-top: 6px; }
+.drive-info a { color: var(--ink-soft); text-decoration: underline; text-underline-offset: 2px; }
+.drive-info a:hover { color: var(--accent); }
+
 /* ---------- Hero ----------
    Full-bleed real photo of Villa Aria Alto (from location-pinarello.com),
    not a flat colour — text is always white/light here regardless of the
@@ -443,6 +447,20 @@ summary::after { content: "+"; float: right; color: var(--ink-soft); font-weight
 details[open] summary::after { content: "\2212"; }
 details p { margin: 12px 0 0; color: var(--ink-soft); }
 
+.wilda-picks { border: none; padding: 0; }
+.wilda-picks:first-of-type { border-top: none; }
+.wilda-picks summary {
+  font-family: var(--font);
+  font-size: 1.3rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+.wilda-picks summary::after { font-size: 1rem; }
+.wilda-picks .muted { margin-top: 12px; }
+.wilda-picks p, .wilda-picks .grid p { margin: 0 0 0.4em; color: inherit; }
+.wilda-picks .grid { margin-top: 16px; }
+
 /* ---------- Villa room configuration ---------- */
 .room-config {
   display: grid;
@@ -662,12 +680,17 @@ footer {
   text-align: center;
   padding: 40px 20px 60px;
   font-size: 0.82rem;
-  color: var(--ink-soft);
-  max-width: 860px;
-  margin: 0 auto;
+  color: rgba(255,255,255,0.75);
+  background: var(--accent);
+  max-width: none;
+  margin: 0;
 }
-footer .footer-copyright { font-weight: 600; color: var(--ink); margin-top: 14px; }
-footer .footer-disclaimer { margin-top: 6px; font-style: italic; max-width: 520px; margin-left: auto; margin-right: auto; }
+footer .footer-copyright { font-weight: 600; color: #fff; margin-top: 14px; }
+footer .footer-disclaimer { margin-top: 6px; font-style: italic; max-width: 520px; margin-left: auto; margin-right: auto; color: rgba(255,255,255,0.7); }
+footer .footer-partners { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 16px; margin-top: 24px; }
+footer .footer-partners a { display: inline-flex; align-items: center; background: #fff; border-radius: 8px; padding: 8px 14px; }
+footer .footer-partners img { height: 18px; width: auto; display: block; }
+footer .footer-partners-label { font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.55); margin-top: 28px; margin-bottom: 0; }
 
 /* ---------- Full-bleed photo dividers ---------- */
 .section-divider {
