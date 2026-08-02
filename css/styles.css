@@ -13,20 +13,6 @@
   --font: -apple-system, ui-sans-serif, "SF Pro Display", "Helvetica Neue", system-ui, Roboto, sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #111110;
-    --bg-tint: #171715;
-    --ink: #f5f5f7;
-    --ink-soft: #98989d;
-    --line: #2e2e2c;
-    --accent: #5ca383;
-    --accent-soft: #4a8a6d;
-    --accent-pale: #16261f;
-    --panel: #1c1c1a;
-  }
-}
-
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 
