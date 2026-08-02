@@ -37,6 +37,7 @@ body {
   font-family: var(--font);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
 }
 
 h1, h2, h3 {
@@ -586,6 +587,8 @@ details p { margin: 12px 0 0; color: var(--ink-soft); }
   overflow-x: auto;
   scrollbar-width: none;
   -ms-overflow-style: none;
+  -webkit-overflow-scrolling: touch;
+  min-width: 0;
 }
 .topnav__links::-webkit-scrollbar { display: none; }
 .topnav__links a {
@@ -619,18 +622,55 @@ details p { margin: 12px 0 0; color: var(--ink-soft); }
   margin-bottom: 6px;
 }
 .forum-post p { margin: 0 0 6px; }
-.forum-post__delete {
-  margin-top: 6px;
+.forum-post__actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+.forum-post__actions button {
   font-size: 0.78rem;
   font-weight: 600;
-  color: #ff6b6b;
   background: none;
-  border: 1px solid rgba(255,107,107,0.4);
-  padding: 4px 10px;
+  border: 1px solid var(--line);
+  padding: 4px 12px;
   border-radius: 999px;
   cursor: pointer;
+  color: var(--ink-soft);
+}
+.forum-post__like { color: var(--accent-soft); border-color: var(--accent-soft); }
+.forum-post__like:hover { background: var(--accent-pale); }
+.forum-post__like.is-liked { background: var(--accent-pale); color: var(--accent); }
+.forum-post__reply-toggle:hover, .forum-post__share:hover { background: var(--bg-tint); }
+.forum-post__delete {
+  color: #ff6b6b;
+  border-color: rgba(255,107,107,0.4);
 }
 .forum-post__delete:hover { background: rgba(255,107,107,0.1); }
+.forum-post__likers-toggle {
+  border: none;
+  padding: 4px 4px;
+  font-size: 0.75rem;
+  color: var(--ink-soft);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.forum-post__likers-toggle:hover { color: var(--accent); }
+.forum-post__likers { margin-top: 8px; font-size: 0.78rem; }
+
+.forum-post__replies { margin-top: 12px; padding-left: 16px; border-left: 2px solid var(--line); }
+.forum-reply { margin-bottom: 10px; }
+.forum-reply:last-child { margin-bottom: 0; }
+.forum-reply strong { font-size: 0.85rem; }
+.forum-reply .muted { font-size: 0.75rem; margin-left: 6px; }
+.forum-reply p { margin: 2px 0 0; font-size: 0.88rem; }
+
+.forum-post__reply-form { display: flex; gap: 8px; margin-top: 12px; }
+.forum-post__reply-form .reply-input {
+  flex: 1;
+  min-width: 0;
+  padding: 8px 12px;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  background: var(--bg);
+  color: var(--ink);
+  font-size: 0.88rem;
+}
 
 footer {
   text-align: center;

@@ -185,6 +185,24 @@
     return isNaN(d) ? "" : d.toLocaleDateString(undefined, { day: "numeric", month: "short" });
   }
 
+  function likedKey(row) { return `forum-liked-${row}`; }
+
+  function shareText(p) {
+    let text = `${p.name} on Corsica '26: ${p.message}`;
+    if (p.link) text += ` ${p.link}`;
+    return text;
+  }
+
+  function renderReplies(p) {
+    if (!p.replies || !p.replies.length) return "";
+    return `<div class="forum-post__replies">${p.replies.map((r) => `
+      <div class="forum-reply">
+        <strong>${escapeHtml(r.name)}</strong>
+        <span class="muted">${formatDate(r.timestamp)}</span>
+        <p>${escapeHtml(r.message)}</p>
+      </div>`).join("")}</div>`;
+  }
+
   function render() {
     if (!posts.length) {
       feed.innerHTML = `<p class="muted">No posts yet — be the first.</p>`;
@@ -193,20 +211,56 @@
     feed.innerHTML = posts.map((p) => {
       const canDelete = myName() && p.name && p.name.trim().toLowerCase() === myName();
       const linkHtml = p.link ? `<a href="${escapeHtml(p.link)}" target="_blank" rel="noopener">${escapeHtml(p.link)}</a>` : "";
+      const alreadyLiked = localStorage.getItem(likedKey(p.row));
+      const likedBy = p.likedBy || [];
       return `
-        <div class="forum-post">
+        <div class="forum-post" data-row="${p.row}">
           <div class="forum-post__head">
             <strong>${escapeHtml(p.name)}</strong>
             <span class="muted">${formatDate(p.timestamp)}</span>
           </div>
           <p>${escapeHtml(p.message)}</p>
           ${linkHtml}
-          ${canDelete ? `<button class="forum-post__delete" data-row="${p.row}">Delete my post</button>` : ""}
+          <div class="forum-post__actions">
+            <button class="forum-post__like${alreadyLiked ? " is-liked" : ""}" data-row="${p.row}">♡ ${p.likes || 0}</button>
+            ${likedBy.length ? `<button type="button" class="forum-post__likers-toggle" data-row="${p.row}">who?</button>` : ""}
+            <button class="forum-post__reply-toggle" data-row="${p.row}">Reply</button>
+            <button class="forum-post__share" data-row="${p.row}">Share</button>
+            ${canDelete ? `<button class="forum-post__delete" data-row="${p.row}">Delete</button>` : ""}
+          </div>
+          ${likedBy.length ? `<div class="forum-post__likers muted" hidden>Liked by ${escapeHtml(likedBy.join(", "))}</div>` : ""}
+          ${renderReplies(p)}
+          <div class="forum-post__reply-form" hidden>
+            <input type="text" class="reply-input" placeholder="Write a reply...">
+            <button class="btn btn--outline reply-submit" data-row="${p.row}">Send</button>
+          </div>
         </div>`;
     }).join("");
 
     feed.querySelectorAll(".forum-post__delete").forEach((btn) => {
       btn.addEventListener("click", () => deletePost(btn.dataset.row));
+    });
+    feed.querySelectorAll(".forum-post__like").forEach((btn) => {
+      btn.addEventListener("click", () => likePost(btn.dataset.row));
+    });
+    feed.querySelectorAll(".forum-post__likers-toggle").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const list = btn.closest(".forum-post").querySelector(".forum-post__likers");
+        if (list) list.hidden = !list.hidden;
+      });
+    });
+    feed.querySelectorAll(".forum-post__share").forEach((btn) => {
+      btn.addEventListener("click", () => sharePost(btn.dataset.row));
+    });
+    feed.querySelectorAll(".forum-post__reply-toggle").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const form = btn.closest(".forum-post").querySelector(".forum-post__reply-form");
+        form.hidden = !form.hidden;
+        if (!form.hidden) form.querySelector(".reply-input").focus();
+      });
+    });
+    feed.querySelectorAll(".reply-submit").forEach((btn) => {
+      btn.addEventListener("click", () => submitReply(btn.dataset.row, btn));
     });
   }
 
@@ -228,6 +282,73 @@
       .then((r) => r.json())
       .then((res) => { if (res.ok) load(); else alert("Couldn't delete — name didn't match."); })
       .catch(() => alert("Couldn't delete — try again."));
+  }
+
+  function likePost(row) {
+    if (localStorage.getItem(likedKey(row))) return;
+    let name = localStorage.getItem(NAME_KEY) || "";
+    if (!name) {
+      name = (prompt("Your name, so people can see who liked this:") || "").trim();
+      if (name) localStorage.setItem(NAME_KEY, name);
+    }
+    if (!name) return;
+    fetch(CONFIG.SHEETS_API_URL, {
+      method: "POST",
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body: JSON.stringify({ action: "like", row: Number(row), name }),
+    })
+      .then((r) => r.json())
+      .then((res) => {
+        if (res.ok) {
+          localStorage.setItem(likedKey(row), "1");
+          const p = posts.find((x) => Number(x.row) === Number(row));
+          if (p) { p.likes = res.likes; p.likedBy = res.likedBy; }
+          render();
+        }
+      })
+      .catch(() => {});
+  }
+
+  function submitReply(row, btn) {
+    let name = localStorage.getItem(NAME_KEY) || "";
+    if (!name) {
+      name = (prompt("Your name, so people know who replied:") || "").trim();
+      if (name) localStorage.setItem(NAME_KEY, name);
+    }
+    if (!name) return;
+    const form = btn.closest(".forum-post__reply-form");
+    const input = form.querySelector(".reply-input");
+    const message = input.value.trim();
+    if (!message) return;
+    btn.disabled = true;
+    fetch(CONFIG.SHEETS_API_URL, {
+      method: "POST",
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body: JSON.stringify({ action: "reply", row: Number(row), name, message }),
+    })
+      .then((r) => r.json())
+      .then((res) => {
+        btn.disabled = false;
+        if (res.ok) { input.value = ""; load(); }
+        else alert("Couldn't post reply — try again.");
+      })
+      .catch(() => { btn.disabled = false; alert("Couldn't post reply — try again."); });
+  }
+
+  function sharePost(row) {
+    const p = posts.find((x) => Number(x.row) === Number(row));
+    if (!p) return;
+    const text = shareText(p);
+    const url = location.href.split("#")[0] + "#forum";
+    if (navigator.share) {
+      navigator.share({ text, url }).catch(() => {});
+    } else if (navigator.clipboard) {
+      navigator.clipboard.writeText(`${text} ${url}`).then(() => {
+        alert("Copied — paste it into WhatsApp, Messages, email, wherever.");
+      });
+    } else {
+      prompt("Copy this to share:", `${text} ${url}`);
+    }
   }
 
   load();
