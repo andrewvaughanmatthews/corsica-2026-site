@@ -447,19 +447,19 @@ summary::after { content: "+"; float: right; color: var(--ink-soft); font-weight
 details[open] summary::after { content: "\2212"; }
 details p { margin: 12px 0 0; color: var(--ink-soft); }
 
-.wilda-picks { border: none; padding: 0; }
-.wilda-picks:first-of-type { border-top: none; }
-.wilda-picks summary {
+.collapsible-section { border: none; padding: 0; }
+.collapsible-section:first-of-type { border-top: none; }
+.collapsible-section summary {
   font-family: var(--font);
-  font-size: 1.3rem;
+  font-size: 1.05rem;
   font-weight: 600;
   letter-spacing: -0.01em;
   color: var(--ink);
 }
-.wilda-picks summary::after { font-size: 1rem; }
-.wilda-picks .muted { margin-top: 12px; }
-.wilda-picks p, .wilda-picks .grid p { margin: 0 0 0.4em; color: inherit; }
-.wilda-picks .grid { margin-top: 16px; }
+.collapsible-section summary::after { font-size: 1rem; }
+.collapsible-section .muted { margin-top: 12px; }
+.collapsible-section p, .collapsible-section .grid p { margin: 0 0 0.4em; color: inherit; }
+.collapsible-section .grid, .collapsible-section .bullets { margin-top: 16px; }
 
 /* ---------- Villa room configuration ---------- */
 .room-config {
@@ -691,6 +691,29 @@ footer .footer-partners { display: flex; flex-wrap: wrap; justify-content: cente
 footer .footer-partners a { display: inline-flex; align-items: center; background: #fff; border-radius: 8px; padding: 8px 14px; }
 footer .footer-partners img { height: 18px; width: auto; display: block; }
 footer .footer-partners-label { font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.55); margin-top: 28px; margin-bottom: 0; }
+
+#back-to-top {
+  position: fixed;
+  right: 20px;
+  bottom: 24px;
+  z-index: 900;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: none;
+  background: var(--accent);
+  color: #fff;
+  font-size: 1.2rem;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.2);
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  pointer-events: none;
+}
+#back-to-top.is-visible { opacity: 1; transform: translateY(0); pointer-events: auto; }
+#back-to-top:hover { background: var(--accent-soft); }
 
 /* ---------- Full-bleed photo dividers ---------- */
 .section-divider {
