@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The Big Fat Lebanese-Welsh Holiday</title>
+<link rel="stylesheet" href="css/styles.css">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#ffffff">
+<link rel="icon" href="icons/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Corsica '26">
+</head>
+<body class="is-locked">
+
+<!-- ===== Lock screen ===== -->
+<div class="gate" id="gate">
+  <div class="gate__box">
+    <div class="gate__title">Corsica '26</div>
+    <p class="gate__lead" id="gate-lead">Enter the family password to continue.</p>
+
+    <div id="gate-password-form">
+      <input type="password" id="gate-password-input" class="gate__input" placeholder="Password" autocomplete="current-password">
+      <button class="btn" id="gate-password-submit">Unlock</button>
+      <p class="gate__error" id="gate-error" hidden>Wrong password — try again.</p>
+    </div>
+
+    <button class="btn btn--outline gate__faceid" id="gate-faceid-btn" hidden>Unlock with Face ID</button>
+    <button class="gate__link" id="gate-use-password" hidden>Use password instead</button>
+
+    <div id="gate-enable-faceid" class="gate__enable" hidden>
+      <p class="muted">Enable Face ID on this device so you don't have to type the password next time?</p>
+      <button class="btn btn--outline" id="gate-enable-faceid-btn">Enable Face ID</button>
+      <button class="gate__link" id="gate-skip-faceid">Not now</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== Top nav ===== -->
+<nav class="topnav" id="topnav">
+  <a href="#hero" class="topnav__brand">Corsica '26</a>
+  <div class="topnav__links">
+    <a href="#logistics">Logistics</a>
+    <a href="#villas">Villas</a>
+    <a href="#roster">Roster</a>
+    <a href="#whats-on">What's On</a>
+    <a href="#guide">Guide</a>
+    <a href="#essentials">Essentials</a>
+    <a href="#itinerary">Itinerary</a>
+    <a href="#faq">FAQ</a>
+    <a href="#forum">Forum</a>
+  </div>
+</nav>
+
+<!-- ===== Hero ===== -->
+<header class="hero" id="hero">
+<div class="hero-inner">
+  <div class="flag-row" aria-label="Welsh, Lebanese and Corsican flags">
+    <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Flag_of_Wales.svg" alt="Flag of Wales">
+    <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Flag_of_Lebanon.svg" alt="Flag of Lebanon">
+    <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Flag_of_Corsica.svg" alt="Flag of Corsica">
+  </div>
+
+  <span class="kicker">Wales · Lebanon · Corsica</span>
+  <h1>The Big Fat Lebanese-Welsh Holiday</h1>
+  <p class="tagline">8–22 August 2026.</p>
+
+  <div class="countdown">
+    <div class="countdown-box__label" id="countdown-label">Until wheels up</div>
+    <div class="countdown-box__value" id="countdown">—</div>
+  </div>
+  <p class="meta">Sainte-Lucie-de-Porto-Vecchio, Corsica</p>
+</div>
+</header>
+
+<!-- ===== Logistics ===== -->
+<section id="logistics">
+  <span class="eyebrow">Logistics</span>
+  <h2>Getting there</h2>
+
+  <h3>Flights</h3>
+  <div class="panel">
+    <p><strong>Out — Sat 8 Aug:</strong> BA0358, London Heathrow (T3) 10:45 → Figari (FSC) 14:20</p>
+    <p><strong>Back — Sat 22 Aug:</strong> BA0359, Figari (FSC) 15:20 → London Heathrow (T3) 16:45</p>
+  </div>
+
+  <h3>Car hire</h3>
+  <div class="panel">
+    <p>Sixt Standard SUV — pickup Figari Airport, 8 Aug 3:00pm · return 22 Aug 1:00pm.</p>
+    <p class="muted">Booking reference <strong>9735575374</strong> — under Andy's name. Check in with this at the Sixt desk.</p>
+  </div>
+
+  <h3>Home transport</h3>
+  <div class="panel">
+    <p class="muted">Andy, Rima, Oscar, Maya and Eirwen's logistics:</p>
+    <p><strong>Out:</strong> van pickup from home 7:15am, Heathrow T5 by 7:59am (8 Aug)</p>
+    <p><strong>Back:</strong> van pickup Heathrow T5 5:30pm, home by ~6:19pm (22 Aug)</p>
+  </div>
+
+  <h3>Finding the villas</h3>
+  <div class="panel">
+    <p>Both villas are on the hillside above Sainte-Lucie-de-Porto-Vecchio, South Corsica. Search <strong>"Villa Aria Alto"</strong> or <strong>"Villa Aria Terra"</strong> directly in Apple/Google Maps — the iPhone's built-in GPS is unreliable on this particular route.</p>
+    <p><strong>Check-in from 6pm, check-out before 9:30am.</strong> Call the host around 30 minutes before arriving — signal can be patchy near the villas. Linens, towels and pool towels are all provided.</p>
+  </div>
+</section>
+
+<!-- ===== Villas ===== -->
+<section id="villas">
+  <span class="eyebrow">The villas</span>
+  <h2>Aria Alto &amp; Aria Terra</h2>
+  <p>Twin 5-bedroom villas on the hillside above Sainte-Lucie-de-Porto-Vecchio — each with en-suite bedrooms (king beds, sea view, aircon, smart TV, safe), a 14.5m heated pool (29°C), sea-view jacuzzi, sauna, floodlit pétanque court, summer kitchen/plancha, and an EV charging point. The view runs down the valley to the sea, with Sardinia visible on a clear day. Seven minutes to the beach, ten to the Cavu river.</p>
+
+  <h3>A tour of Aria Alto</h3>
+  <div class="video-embed">
+    <iframe src="https://www.youtube-nocookie.com/embed/1oyr3ouMC_k" title="Villa Aria Alto — video tour" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  </div>
+  <p class="muted" style="margin-top:10px;">The host's own video of Aria Alto specifically. There's also a broader walkthrough of the residence and grounds, covering both villas.</p>
+  <div class="btn-row">
+    <a class="btn btn--outline" href="https://www.youtube.com/watch?v=GDkkfTldMlc" target="_blank" rel="noopener">Watch the residence &amp; grounds</a>
+  </div>
+
+  <h3 style="margin-top:32px;">Aria Alto</h3>
+  <div class="photo-gallery">
+    <img src="https://www.location-pinarello.com/wp-content/uploads/2025/06/header-aria-alto-2.jpg" alt="Aria Alto pool and terrace" loading="lazy">
+    <img src="https://www.location-pinarello.com/wp-content/uploads/cache/2024/09/Aria-Alto/3537267019.jpg" alt="Aria Alto villa exterior and pool" loading="lazy">
+    <img src="https://www.location-pinarello.com/wp-content/uploads/cache/2024/09/Aria-Alto-2-1/654276988.jpg" alt="Aria Alto jacuzzi and pool, sea view" loading="lazy">
+    <img src="https://www.location-pinarello.com/wp-content/uploads/cache/2024/09/aria-alto-7/1356619256.jpg" alt="Aria Alto terrace, sea view" loading="lazy">
+    <img src="https://www.location-pinarello.com/wp-content/uploads/cache/2024/09/Aria-Alto-4-1/637643732.jpg" alt="Aria Alto dining and living space" loading="lazy">
+    <img src="https://www.location-pinarello.com/wp-content/uploads/cache/2024/09/aria-alto-4/2472122795.jpg" alt="Aria Alto bedroom, sea view" loading="lazy">
+    <img src="https://www.location-pinarello.com/wp-content/uploads/cache/2024/09/aria-alto-9/1792030804.jpg" alt="Aria Alto bedroom and en-suite" loading="lazy">
+    <img src="https://www.location-pinarello.com/wp-content/uploads/cache/2024/09/villa-aria-alto-7/2861746068.jpg" alt="Aria Alto outdoor sauna" loading="lazy">
+    <img src="https://www.location-pinarello.com/wp-content/uploads/cache/2024/09/aria-alto-11/1185662231.jpg" alt="Aria Alto bedroom" loading="lazy">
+  </div>
+
+  <h3 style="margin-top:28px;">Aria Terra</h3>
+  <div class="photo-gallery">
+    <img src="https://www.location-pinarello.com/wp-content/uploads/2025/08/header-aria-terra.jpg" alt="Aria Terra pool and terrace" loading="lazy">
+    <img src="https://www.location-pinarello.com/wp-content/uploads/2025/01/villa-aria-terra-23.jpg" alt="Aria Terra living space" loading="lazy">
+    <img src="https://www.location-pinarello.com/wp-content/uploads/2025/01/villa-aria-terra-10.jpg" alt="Aria Terra bedroom, sea view" loading="lazy">
+    <img src="https://www.location-pinarello.com/wp-content/uploads/2025/01/villa-aria-terra-18.jpg" alt="Aria Terra bathroom" loading="lazy">
+    <img src="https://www.location-pinarello.com/wp-content/uploads/2025/01/villa-aria-terra-24.jpg" alt="Aria Terra terrace" loading="lazy">
+    <img src="https://www.location-pinarello.com/wp-content/uploads/2025/01/villa-aria-terra-20.jpg" alt="Aria Terra kitchen" loading="lazy">
+    <img src="https://www.location-pinarello.com/wp-content/uploads/2025/01/villa-aria-terra-14.jpg" alt="Aria Terra bedroom" loading="lazy">
+    <img src="https://www.location-pinarello.com/wp-content/uploads/2025/01/villa-aria-terra-16.jpg" alt="Aria Terra sea view" loading="lazy">
+    <img src="https://www.location-pinarello.com/wp-content/uploads/2025/01/villa-aria-terra-12.jpg" alt="Aria Terra exterior" loading="lazy">
+  </div>
+</section>
+
+<div class="photo-band" style="background-image:url('https://www.location-pinarello.com/wp-content/uploads/cache/2024/09/Aria-Alto/3537267019.jpg')">
+  <span>Aria Alto, Sainte-Lucie-de-Porto-Vecchio</span>
+</div>
+
+<!-- ===== Roster ===== -->
+<section id="roster">
+  <span class="eyebrow">Who's where</span>
+  <h2>The Roster</h2>
+  <p class="muted">Room by room, both villas.</p>
+
+  <div class="villa-block">
+    <h3>Villa Aria Alto</h3>
+    <ul class="room-list">
+      <li><span class="room-num">1</span>Andy &amp; Rima</li>
+      <li><span class="room-num">2</span>Maya &amp; Oscar</li>
+      <li><span class="room-num">3</span>Souheil &amp; Randa</li>
+      <li><span class="room-num">4</span>Rana &amp; Eva</li>
+      <li><span class="room-num">5</span>Eirwen</li>
+    </ul>
+  </div>
+
+  <div class="villa-block">
+    <h3>Villa Aria Terra</h3>
+    <ul class="room-list">
+      <li><span class="room-num">1</span>Wilda &amp; Marwan</li>
+      <li><span class="room-num">2</span>Natasha</li>
+      <li><span class="room-num">3</span>Dina &amp; Nic</li>
+      <li><span class="room-num">4</span>George</li>
+      <li><span class="room-num">5</span>Lia, Isabella &amp; Maria</li>
+    </ul>
+  </div>
+
+  <h3 style="margin-top:8px;">Scoreboard</h3>
+  <p class="muted">Pétanque and pool games, tallied on this device.</p>
+  <div class="panel scoreboard">
+    <div class="team">
+      <h3>Aria Alto</h3>
+      <div class="score" id="score-alto">0</div>
+      <div class="buttons">
+        <button id="score-alto-minus">−</button>
+        <button id="score-alto-plus">+</button>
+      </div>
+    </div>
+    <div class="team">
+      <h3>Aria Terra</h3>
+      <div class="score" id="score-terra">0</div>
+      <div class="buttons">
+        <button id="score-terra-minus">−</button>
+        <button id="score-terra-plus">+</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== What's On ===== -->
+<section id="whats-on">
+  <span class="eyebrow">What's on</span>
+  <h2>Things to book</h2>
+  <p class="muted">Contact these directly if you want them — nothing's arranged yet.</p>
+  <div class="grid">
+    <div class="panel"><h3>Private chef nights</h3><p>In-villa dinners, three chefs on rotation: Gioia, Elisa and Pierre-Olivier.</p></div>
+    <div class="panel"><h3>Babysitting</h3><p>Chiara-Marine, available through the host.</p></div>
+    <div class="panel"><h3>Personal trainer + kids' games</h3><p>Marie runs sessions for adults, plus organised games and sport for the kids.</p></div>
+    <div class="panel"><h3>Boat hire</h3><p><a href="tel:+33495714441">Corsil Bateau</a>, Pinarello — a family day out on the water.</p></div>
+    <div class="panel"><h3>Canyoning</h3><p><a href="https://www.atyroliana.com/canyoning" target="_blank" rel="noopener">A Tyroliana</a> — four routes in the Cavu valley from age 7, ten minutes from the villas.</p></div>
+    <div class="panel"><h3>Sea kayaking &amp; paddleboards</h3><p><a href="https://www.sporsica.fr/" target="_blank" rel="noopener">Sporsica</a>, right on Pinarello beach — kayak, SUP and pedalo hire.</p></div>
+    <div class="panel"><h3>Horse riding</h3><p><a href="https://www.google.com/maps/search/Spina+Cavallu+Sainte+Lucie+de+Porto+Vecchio" target="_blank" rel="noopener">Spina Cavallu</a> and <a href="https://www.google.com/maps/search/Zappa+Horse+Endurance+Sainte+Lucie+de+Porto+Vecchio" target="_blank" rel="noopener">Zappa'Horse Endurance</a>, both in Sainte-Lucie — lessons and forest/beach rides for kids and adults.</p></div>
+  </div>
+
+  <h3 style="margin-top:32px;">Who to call</h3>
+  <p class="muted">Straight from Matthieu's welcome email.</p>
+  <div class="grid" id="contacts-grid"></div>
+</section>
+
+<!-- ===== Local Guide ===== -->
+<section id="guide">
+  <span class="eyebrow">Local guide</span>
+  <h2>Beaches, food and days out</h2>
+
+  <h3>Map</h3>
+  <iframe class="map-frame" id="map-frame" loading="lazy"></iframe>
+  <div class="btn-row">
+    <a class="btn btn--outline" id="map-link" target="_blank" rel="noopener">Open in Google Maps</a>
+  </div>
+
+  <h3 style="margin-top:32px;">Beaches</h3>
+  <ul class="bullets">
+    <li><strong>Pinarello</strong> — long, sandy, shallow, great for little ones</li>
+    <li><strong>Fautea</strong> — wilder cove, Genoese watchtower, free parking</li>
+    <li><strong>Caramuntinu &amp; Ovu Santu</strong> — quieter coves</li>
+    <li><strong>Conca</strong> — local beach, on the summer shuttle route</li>
+    <li><strong>Palombaggia &amp; Santa Giulia</strong> — Porto-Vecchio's well-known white-sand beaches, a scenic drive south, busier but worth it at least once</li>
+  </ul>
+  <p class="muted">A summer shuttle links Conca, Sainte-Lucie, Pinarello and Porto-Vecchio.</p>
+
+  <h3>Beach clubs</h3>
+  <div class="grid">
+    <div class="panel">
+      <h3>Palombaggia</h3>
+      <ul class="bullets">
+        <li><a href="https://www.sealounge-portovecchio.com/" target="_blank" rel="noopener">Da Mare</a> — fusion/champagne</li>
+        <li><a href="https://www.lepalmbeachpalombaggia.com/en/" target="_blank" rel="noopener">Palmbeach</a> — Mediterranean grill</li>
+        <li><a href="https://lindabeach.fr/" target="_blank" rel="noopener">Linda Beach</a> — watersports</li>
+        <li>Tiki Club — DJ atmosphere</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <h3>Santa Giulia</h3>
+      <ul class="bullets">
+        <li>Køstën Plage</li>
+        <li>Le Cabanon Bleu — elegant waterfront</li>
+        <li><a href="https://barplage.fr/bar-plage-santa-giulia/" target="_blank" rel="noopener">Bar Plage</a> — casual, paninis</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <h3>Pinarello</h3>
+      <p>Closest to the villas — U Punta di l'Aria, Les Parasols. Low-key, on the sand.</p>
+    </div>
+  </div>
+
+  <h3 style="margin-top:28px;">Restaurants — near the villa (10 min or less)</h3>
+  <div class="grid">
+    <div class="panel">
+      <h3>Fine dining</h3>
+      <ul class="bullets">
+        <li><a href="https://www.lesregalia.com/" target="_blank" rel="noopener">ALBA at Les Regalia</a> — tasting menu, Pinarello</li>
+        <li><a href="https://www.la-source-restaurant-zonza.fr/" target="_blank" rel="noopener">La Source</a> — Caramontino</li>
+        <li>Le Grain de Sable</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <h3>Casual &amp; beachfront</h3>
+      <ul class="bullets">
+        <li><a href="https://www.legolfepinarello.com/" target="_blank" rel="noopener">Le Golfe Pinarello</a> — good value, family-run</li>
+        <li><a href="https://www.labaiedepinarello.fr/" target="_blank" rel="noopener">La Baie de Pinarello</a> — panoramic terrace over the bay</li>
+        <li><a href="https://www.paillote-lideal.fr/" target="_blank" rel="noopener">L'Idéal</a> — right on Pinarello beach</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <h3>Pizza</h3>
+      <ul class="bullets">
+        <li><a href="https://chezfredsiteinternet.wixsite.com/chezfred" target="_blank" rel="noopener">Chez Fred</a> — vegan/gluten-free options too</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3 style="margin-top:28px;">Restaurants — Porto-Vecchio (worth the drive)</h3>
+  <p>Around 20 restaurants along the seafront — good for a wander-and-pick evening.</p>
+  <p class="muted">Worth booking ahead anywhere — August is peak season and places fill up fast.</p>
+
+  <h3 style="margin-top:28px;">Heritage &amp; churches</h3>
+  <ul class="bullets">
+    <li>The parish church of Sainte-Lucie (San Martinu) — 17th-century Corsican baroque</li>
+    <li>The Genoese watchtower above Fautea beach</li>
+    <li>Porto-Vecchio's old town — citadel, ramparts, market</li>
+    <li>Day trip: Bonifacio — cliff-top old town, boat trips into the calanques</li>
+  </ul>
+
+  <h3 style="margin-top:28px;">A bit of history</h3>
+  <ul class="bullets">
+    <li><strong>Napoleon</strong> was born in Ajaccio in 1769 — his childhood home, Maison Bonaparte, is now a museum, about an hour and a half's drive from the villas.</li>
+    <li>Just before that, Corsica was briefly its own country: the <strong>Corsican Republic</strong> (1755–1769), led by Pasquale Paoli, had one of the world's first written constitutions — drafted in Tuscan Italian and unusually progressive for its time, including a form of female suffrage. France annexed the island in 1769, the same year Napoleon was born.</li>
+    <li>The <strong>Knights Templar</strong> passed through Corsica too — the Gothic Église Saint-Dominique in Bonifacio (the only Gothic-style church on the island) was built by Dominican friars on what's believed to be the site of an earlier Templar church, worth a look on the Bonifacio day trip.</li>
+    <li>Corsica changed hands a lot: Roman, Pisan, then centuries of <strong>Genoese</strong> rule (hence the watchtowers dotted along the coast) before France took over — you can see the layers of it in the old towns at Bonifacio and Porto-Vecchio.</li>
+  </ul>
+
+  <h3>The Cavu river</h3>
+  <p>Ten minutes from the villas — natural swimming pools cut into the rock, good for older kids and teens. Same valley as the <a href="https://www.atyroliana.com/canyoning" target="_blank" rel="noopener">A Tyroliana</a> canyoning routes above.</p>
+
+  <h3>For the kids</h3>
+  <ul class="bullets">
+    <li>Pinarello beach</li>
+    <li>Pony sessions</li>
+    <li>The trainer's kids' games at the villa</li>
+    <li>The boat day</li>
+    <li>Ice cream in Porto-Vecchio old town</li>
+  </ul>
+
+  <h3 style="margin-top:28px;">A few useful words</h3>
+  <div class="panel lang-cheat">
+    <div class="item"><div class="word">Croeso</div><div class="meaning">Welsh — Welcome</div></div>
+    <div class="item"><div class="word">أهلاً وسهلاً</div><div class="translit">Ahlan wa sahlan</div><div class="meaning">Lebanese Arabic — Welcome</div></div>
+    <div class="item"><div class="word">Bienvenue</div><div class="meaning">French — Welcome</div></div>
+    <div class="item"><div class="word">Iechyd da</div><div class="meaning">Welsh — Cheers</div></div>
+    <div class="item"><div class="word">صحتين</div><div class="translit">Sahtein</div><div class="meaning">Lebanese Arabic — Cheers</div></div>
+    <div class="item"><div class="word">Santé</div><div class="meaning">French — Cheers</div></div>
+    <div class="item"><div class="word">يعطيك العافية</div><div class="translit">Yaatik el-afyeh</div><div class="meaning">Lebanese Arabic — Thank you / well done</div></div>
+    <div class="item"><div class="word">حلو كتير</div><div class="translit">Helou ktir</div><div class="meaning">Lebanese Arabic — Really nice / beautiful</div></div>
+    <div class="item"><div class="word">يالله</div><div class="translit">Yalla</div><div class="meaning">Lebanese Arabic — Let's go / come on</div></div>
+  </div>
+</section>
+
+<!-- ===== Everyday Essentials ===== -->
+<section id="essentials">
+  <span class="eyebrow">Everyday essentials</span>
+  <h2>Supermarkets, fuel, bakeries</h2>
+  <div class="grid">
+    <div class="panel">
+      <h3>Supermarkets</h3>
+      <ul class="bullets">
+        <li><a href="https://magasins.spar.fr/fr/s/spar-supermarche-sainte-lucie-de-porto-vecchio" target="_blank" rel="noopener">SPAR Sainte-Lucie</a> — order for delivery</li>
+        <li><a href="https://www.coursesu.com/drive-superu-sainteluciedeportovecchio" target="_blank" rel="noopener">Super U Sainte-Lucie</a> — drive or delivery via Courses U</li>
+      </ul>
+    </div>
+    <div class="panel"><h3>Petrol</h3><p>Automatic fuel station in Sainte-Lucie-de-Porto-Vecchio, open 24 hours.</p></div>
+    <div class="panel"><h3>Bakeries</h3><p>A couple of good options in Sainte-Lucie-de-Porto-Vecchio — worth a wander in the first few days to find the family favourite.</p></div>
+  </div>
+</section>
+
+<!-- ===== Day flow ===== -->
+<section id="itinerary">
+  <span class="eyebrow">Loosely</span>
+  <h2>Day by day</h2>
+  <p class="muted">A shape for the trip, not a schedule — only the flights and the cleaning days are fixed. Everything else here is a placeholder; nothing's booked. Anyone can tap "Edit" on a day and update it — changes are visible to everyone.</p>
+  <div class="timeline">
+    <div class="day" data-row="2"><div class="day-num">Day 1 · Sat 8 Aug</div><p class="day-plan">Arrival day — BA0358 lands Figari 14:20. Villa check-in from 6pm. Easy dinner in.</p></div>
+    <div class="day" data-row="3"><div class="day-num">Day 2 · Sun 9 Aug</div><p class="day-plan">First full day — Pinarello beach, settle in.</p></div>
+    <div class="day" data-row="4"><div class="day-num">Day 3 · Mon 10 Aug</div><p class="day-plan">Sainte-Lucie market and bakery run, Fautea beach.</p></div>
+    <div class="day" data-row="5"><div class="day-num">Day 4 · Tue 11 Aug</div><p class="day-plan">Boat day out of Pinarello.</p></div>
+    <div class="day" data-row="6"><div class="day-num">Day 5 · Wed 12 Aug</div><p class="day-plan">Villa cleaning day (4hr) — Porto-Vecchio old town or Palombaggia in the afternoon.</p></div>
+    <div class="day" data-row="7"><div class="day-num">Day 6 · Thu 13 Aug</div><p class="day-plan">Horse riding or the Cavu river for the older kids.</p></div>
+    <div class="day" data-row="8"><div class="day-num">Day 7 · Fri 14 Aug</div><p class="day-plan">Chef night in. Pool day.</p></div>
+    <div class="day" data-row="9"><div class="day-num">Day 8 · Sat 15 Aug</div><p class="day-plan">Full clean + fresh sheets at the villa — Bonifacio day trip.</p></div>
+    <div class="day" data-row="10"><div class="day-num">Day 9 · Sun 16 Aug</div><p class="day-plan">Santa Giulia or Palombaggia beach club.</p></div>
+    <div class="day" data-row="11"><div class="day-num">Day 10 · Mon 17 Aug</div><p class="day-plan">Canyoning with A Tyroliana, Cavu valley.</p></div>
+    <div class="day" data-row="12"><div class="day-num">Day 11 · Tue 18 Aug</div><p class="day-plan">Chef night in.</p></div>
+    <div class="day" data-row="13"><div class="day-num">Day 12 · Wed 19 Aug</div><p class="day-plan">Villa cleaning day (4hr) — Pinarello beach clubs.</p></div>
+    <div class="day" data-row="14"><div class="day-num">Day 13 · Thu 20 Aug</div><p class="day-plan">Sea kayaking / paddleboards with Sporsica.</p></div>
+    <div class="day" data-row="15"><div class="day-num">Day 14 · Fri 21 Aug</div><p class="day-plan">Last full day — beach, pack up, dinner out near the villa.</p></div>
+    <div class="day" data-row="16"><div class="day-num">Day 15 · Sat 22 Aug</div><p class="day-plan">Departure day — villa check-out by 9:30am, Sixt return 1pm, BA0359 departs Figari 15:20.</p></div>
+  </div>
+</section>
+
+<!-- ===== FAQ ===== -->
+<section id="faq">
+  <span class="eyebrow">Questions</span>
+  <h2>FAQ</h2>
+  <details>
+    <summary>Are towels and bed linen provided?</summary>
+    <p>Yes — bed linen plus shower, beach and pool towels are all provided in both villas.</p>
+  </details>
+  <details>
+    <summary>Is there a cleaning service during the stay?</summary>
+    <p>Yes — a 4-hour clean each Wednesday, plus a full clean with fresh sheets on the Saturday in between.</p>
+  </details>
+  <details>
+    <summary>What's already in the villa?</summary>
+    <p>A Nespresso machine and a filter coffee machine, hairdryers in every bathroom, a safe in every bedroom, and three Sonos speakers in the living space.</p>
+  </details>
+  <details>
+    <summary>Can breakfast be arranged?</summary>
+    <p>Yes, through the host — €18 per person: tea, coffee or hot chocolate, pastries, bread with butter and jam, fromage blanc, and fresh orange juice.</p>
+  </details>
+  <details>
+    <summary>Can groceries be delivered?</summary>
+    <p>Yes — see Everyday Essentials for the SPAR and Super U ordering links.</p>
+  </details>
+  <details>
+    <summary>What if I end up at the wrong place?</summary>
+    <p>Corsica has a couple of similarly-named spots, so double-check you're on the south-east coast, right by the sea, before going too far. Search "Villa Aria Alto" or "Villa Aria Terra" directly in Maps, and call the host about 30 minutes out.</p>
+  </details>
+</section>
+
+<!-- ===== Forum ===== -->
+<section id="forum">
+  <span class="eyebrow">Anyone can add to this</span>
+  <h2>Ideas, links &amp; photos</h2>
+  <p class="muted">Post a restaurant you've found, a photo, a "we should do this" — whatever. Say who you are so people know it's from you, and you can delete your own posts later.</p>
+
+  <div class="btn-row">
+    <a class="btn" id="forum-post-link" href="#" target="_blank" rel="noopener">Post something</a>
+  </div>
+
+  <div class="panel" id="forum-whoami" style="margin-top:20px;">
+    <p class="muted" style="margin-bottom:10px;">Everyone sees every post below — this box is just so <em>this device</em> remembers who you are, so a "Delete" button shows up on your own posts:</p>
+    <div class="btn-row">
+      <input type="text" id="forum-name-input" placeholder="Your name" style="flex:1; min-width:160px; padding:10px 14px; border-radius:10px; border:1px solid var(--line); background:var(--bg); color:var(--ink); font-size:0.95rem;">
+      <button class="btn btn--outline" id="forum-name-save">Save</button>
+    </div>
+  </div>
+
+  <div id="forum-feed" style="margin-top:24px;"></div>
+</section>
+
+<footer>
+  Corsica · 8–22 August 2026
+</footer>
+
+<!-- ===== Photo lightbox ===== -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox__close" id="lightbox-close" aria-label="Close">&times;</button>
+  <button class="lightbox__nav lightbox__prev" id="lightbox-prev" aria-label="Previous photo">&#8249;</button>
+  <img class="lightbox__img" id="lightbox-img" src="" alt="">
+  <button class="lightbox__nav lightbox__next" id="lightbox-next" aria-label="Next photo">&#8250;</button>
+  <div class="lightbox__counter" id="lightbox-counter"></div>
+</div>
+
+<script src="js/config.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
