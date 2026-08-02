@@ -481,3 +481,31 @@
   document.getElementById("score-terra-minus").addEventListener("click", () => set("score-terra", terra, Math.max(0, --terraScore)));
 })();
 
+// ---- Scrollspy: highlight the current section in the top nav ----
+(function scrollspy() {
+  const links = Array.from(document.querySelectorAll(".topnav__links a"));
+  if (!links.length) return;
+
+  const sections = links
+    .map((link) => document.querySelector(link.getAttribute("href")))
+    .filter(Boolean);
+  if (!sections.length) return;
+
+  function setActive(id) {
+    links.forEach((link) => {
+      link.classList.toggle("is-active", link.getAttribute("href") === `#${id}`);
+    });
+  }
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) setActive(entry.target.id);
+      });
+    },
+    { rootMargin: "-45% 0px -50% 0px", threshold: 0 }
+  );
+
+  sections.forEach((section) => observer.observe(section));
+})();
+

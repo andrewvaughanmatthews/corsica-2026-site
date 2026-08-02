@@ -4,8 +4,10 @@
   --ink: #1d1d1f;
   --ink-soft: #6e6e73;
   --line: #dfdfdc;
-  --accent: #2f4a3a;
-  --accent-soft: #4a6a56;
+  --accent: #00402e;
+  --accent-soft: #2f6b53;
+  --accent-pale: #e9f1ec;
+  --coral: #f29596;
   --panel: #f5f5f3;
   --radius: 18px;
   --font: -apple-system, ui-sans-serif, "SF Pro Display", "Helvetica Neue", system-ui, Roboto, sans-serif;
@@ -18,8 +20,9 @@
     --ink: #f5f5f7;
     --ink-soft: #98989d;
     --line: #2e2e2c;
-    --accent: #7fae95;
-    --accent-soft: #6a9481;
+    --accent: #5ca383;
+    --accent-soft: #4a8a6d;
+    --accent-pale: #16261f;
     --panel: #1c1c1a;
   }
 }
@@ -52,6 +55,18 @@ h1, h2, h3 {
   text-transform: uppercase;
   color: var(--accent-soft);
   margin-bottom: 0.9em;
+  position: relative;
+  padding-top: 14px;
+}
+.eyebrow::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 36px;
+  height: 3px;
+  background: var(--coral);
+  border-radius: 2px;
 }
 
 h2 {
@@ -81,6 +96,13 @@ section { position: relative; }
   border-radius: var(--radius);
   padding: 24px;
 }
+.panel--photo { padding: 0; overflow: hidden; }
+.panel--photo .panel__img {
+  height: 140px;
+  background-size: cover;
+  background-position: center;
+}
+.panel--photo .panel__body { padding: 20px 24px 24px; }
 
 /* ---------- Hero ----------
    Full-bleed real photo of Villa Aria Alto (from location-pinarello.com),
@@ -370,19 +392,22 @@ section { position: relative; }
   display: inline-block;
   padding: 11px 20px;
   border-radius: 980px;
-  background: var(--ink);
-  color: var(--bg) !important;
+  background: var(--accent);
+  color: #fff !important;
   text-decoration: none;
   font-weight: 500;
   border: none;
   cursor: pointer;
   font-size: 0.92rem;
+  transition: background 0.15s ease;
 }
+.btn:hover { background: var(--accent-soft); }
 .btn--outline {
   background: transparent;
-  color: var(--ink) !important;
-  border: 1px solid var(--line);
+  color: var(--accent) !important;
+  border: 1px solid var(--accent);
 }
+.btn--outline:hover { background: var(--accent-pale); }
 .btn--disabled { opacity: 0.45; pointer-events: none; }
 .btn-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 12px; }
 
@@ -513,14 +538,14 @@ details p { margin: 12px 0 0; color: var(--ink-soft); }
   justify-content: space-between;
   gap: 20px;
   padding: 14px 20px;
-  background: var(--bg);
-  border-bottom: 1px solid var(--line);
+  background: var(--accent);
+  border-bottom: 1px solid rgba(255,255,255,0.12);
 }
 .topnav__brand {
   font-weight: 700;
   font-size: 0.95rem;
   letter-spacing: -0.01em;
-  color: var(--ink);
+  color: #fff;
   text-decoration: none;
   flex-shrink: 0;
 }
@@ -535,11 +560,18 @@ details p { margin: 12px 0 0; color: var(--ink-soft); }
 .topnav__links a {
   font-size: 0.85rem;
   font-weight: 500;
-  color: var(--ink-soft);
+  color: rgba(255,255,255,0.72);
   text-decoration: none;
   white-space: nowrap;
+  padding-bottom: 4px;
+  border-bottom: 2px solid transparent;
+  transition: color 0.15s ease, border-color 0.15s ease;
 }
-.topnav__links a:hover { color: var(--ink); }
+.topnav__links a:hover { color: #fff; }
+.topnav__links a.is-active {
+  color: #fff;
+  border-bottom-color: #fff;
+}
 
 /* ---------- Forum ---------- */
 .forum-post {
@@ -576,6 +608,46 @@ footer {
   color: var(--ink-soft);
   max-width: 860px;
   margin: 0 auto;
+}
+footer .footer-copyright { font-weight: 600; color: var(--ink); margin-top: 14px; }
+footer .footer-disclaimer { margin-top: 6px; font-style: italic; max-width: 520px; margin-left: auto; margin-right: auto; }
+
+/* ---------- Full-bleed photo dividers ---------- */
+.section-divider {
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  width: 100vw;
+  height: 380px;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+}
+.section-divider::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(0deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0) 45%);
+}
+.section-divider span {
+  position: relative;
+  z-index: 1;
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 500;
+  padding: 18px 24px;
+  max-width: 860px;
+  margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
+  text-shadow: 0 1px 8px rgba(0,0,0,0.4);
+}
+@media (max-width: 640px) {
+  .section-divider { height: 260px; }
 }
 
 @media print {
