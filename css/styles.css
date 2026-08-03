@@ -693,6 +693,8 @@ footer {
 }
 footer .footer-copyright { font-weight: 600; color: #fff; margin-top: 14px; }
 footer .footer-disclaimer { margin-top: 6px; font-style: italic; max-width: 520px; margin-left: auto; margin-right: auto; color: rgba(255,255,255,0.7); }
+footer .footer-disclaimer p { margin: 6px 0; }
+footer .footer-disclaimer ul { list-style: none; margin: 6px 0; padding: 0; }
 footer .footer-partners { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 16px; margin-top: 24px; }
 footer .footer-partners a { display: inline-flex; align-items: center; background: #fff; border-radius: 8px; padding: 8px 14px; }
 footer .footer-partners img { height: 18px; width: auto; display: block; }

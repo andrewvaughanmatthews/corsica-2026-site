@@ -642,3 +642,18 @@
   btn.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
 })();
 
+(function externalLinksFromHomeScreenApp() {
+  // iOS/Android treat target="_blank" links inside an installed (standalone)
+  // home-screen app as staying inside the app's own mini-browser, rather than
+  // handing off to full Safari/Chrome (or a native app via universal links).
+  // Same-window navigation from standalone mode is what triggers that handoff,
+  // so when running standalone, drop target="_blank" for outbound links.
+  const isStandalone =
+    window.matchMedia("(display-mode: standalone)").matches ||
+    window.navigator.standalone === true;
+  if (!isStandalone) return;
+  document.querySelectorAll('.footer-partners a[target="_blank"]').forEach((a) => {
+    a.removeAttribute("target");
+  });
+})();
+
