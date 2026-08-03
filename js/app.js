@@ -657,3 +657,32 @@
   });
 })();
 
+(function updateChecker() {
+  // No service worker here — the home-screen icon just loads the live URL.
+  // The only staleness risk is iOS/Android keeping a backgrounded instance
+  // in memory instead of refetching, so poll the page's own Last-Modified
+  // header (bypassing cache) whenever the tab/app regains focus.
+  const banner = document.getElementById("update-banner");
+  if (!banner) return;
+  const loadedAt = new Date(document.lastModified).getTime();
+
+  async function check() {
+    try {
+      const res = await fetch(location.pathname, { method: "HEAD", cache: "no-store" });
+      const header = res.headers.get("last-modified");
+      if (header && new Date(header).getTime() > loadedAt) {
+        banner.classList.add("is-visible");
+      }
+    } catch (e) {
+      // offline or blocked — just skip this check
+    }
+  }
+
+  banner.addEventListener("click", () => window.location.reload());
+  document.addEventListener("visibilitychange", () => {
+    if (document.visibilityState === "visible") check();
+  });
+  window.addEventListener("focus", check);
+  check();
+})();
+

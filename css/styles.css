@@ -14,7 +14,7 @@
 }
 
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; overflow-x: hidden; overscroll-behavior-x: none; background: var(--bg); }
 
 body {
   margin: 0;
@@ -24,6 +24,7 @@ body {
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
+  overscroll-behavior-x: none;
 }
 
 h1, h2, h3 {
@@ -724,6 +725,29 @@ footer .footer-partners-label { font-size: 0.7rem; letter-spacing: 0.1em; text-t
 }
 #back-to-top.is-visible { opacity: 1; transform: translateY(0); pointer-events: auto; }
 #back-to-top:hover { background: var(--accent-soft); }
+
+#update-banner {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 960;
+  width: 100%;
+  border: none;
+  background: var(--accent);
+  color: #fff;
+  font-family: var(--font);
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-align: center;
+  padding: 14px 20px;
+  cursor: pointer;
+  box-shadow: 0 -4px 14px rgba(0,0,0,0.2);
+  transform: translateY(100%);
+  transition: transform 0.25s ease;
+}
+#update-banner.is-visible { transform: translateY(0); }
+#update-banner:hover { background: var(--accent-soft); }
 
 /* ---------- Full-bleed photo dividers ---------- */
 .section-divider {
