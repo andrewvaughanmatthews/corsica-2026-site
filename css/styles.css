@@ -91,6 +91,8 @@ section { position: relative; }
 }
 .panel--photo .panel__body { padding: 20px 24px 24px; }
 
+.terminal-flag { color: #c0392b; font-weight: 700; text-decoration: underline; }
+
 .drive-info { display: block; font-size: 0.78rem; color: var(--ink-soft); margin-top: 6px; }
 .drive-info a { color: var(--ink-soft); text-decoration: underline; text-underline-offset: 2px; }
 .drive-info a:hover { color: var(--accent); }
@@ -419,6 +421,10 @@ section { position: relative; }
   margin-bottom: 10px;
   line-height: 1.5;
 }
+.restaurant-item { display: flex; gap: 10px; align-items: flex-start; }
+.restaurant-item .thumb { width: 52px; height: 52px; border-radius: 8px; object-fit: cover; flex-shrink: 0; }
+.restaurant-item .drive-info a { margin-right: 2px; }
+
 .bullets li::before {
   content: "";
   position: absolute;
