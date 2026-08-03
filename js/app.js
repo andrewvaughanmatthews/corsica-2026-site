@@ -687,3 +687,28 @@
   check();
 })();
 
+(function anchorScrollFix() {
+  // html/body are pinned (see #app-shell) so the browser's native "jump to
+  // #id" navigation has nothing to scroll — it updates the URL hash but
+  // never moves the visible content. Scroll the real container ourselves.
+  function scrollToHash(hash, behavior) {
+    if (!hash) return;
+    const target = document.getElementById(hash.slice(1));
+    if (!target) return;
+    target.scrollIntoView({ behavior, block: "start" });
+  }
+
+  document.addEventListener("click", (e) => {
+    const a = e.target.closest('a[href^="#"]');
+    if (!a) return;
+    const hash = a.getAttribute("href");
+    if (hash.length < 2) return;
+    if (!document.getElementById(hash.slice(1))) return;
+    e.preventDefault();
+    scrollToHash(hash, "smooth");
+    history.pushState(null, "", hash);
+  });
+
+  if (location.hash) scrollToHash(location.hash, "auto");
+})();
+
