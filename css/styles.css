@@ -485,6 +485,9 @@ details p { margin: 12px 0 0; color: var(--ink-soft); }
 .collapsible-section p, .collapsible-section .grid p { margin: 0 0 0.4em; color: inherit; }
 .collapsible-section .grid, .collapsible-section .bullets { margin-top: 16px; }
 
+.a2hs-wrap { max-width: 860px; margin: 24px auto 0; padding: 0 24px; }
+.a2hs-icon { display: inline-flex; vertical-align: -4px; border: 1px solid var(--line); border-radius: 6px; padding: 3px; margin: 0 2px; }
+
 /* ---------- Villa room configuration ---------- */
 .room-config {
   display: grid;
