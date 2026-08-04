@@ -1,9 +1,16 @@
 // ---- Lock screen (shared password, with Face ID/Touch ID as a device shortcut) ----
 (function lock() {
-  const PASSKEY_KEY = "corsica-passkey-id";
   const body = document.body;
   const gate = document.getElementById("gate");
   if (!gate) return;
+
+  if (typeof CONFIG !== "undefined" && CONFIG.GATE_ENABLED === false) {
+    body.classList.remove("is-locked");
+    gate.style.display = "none";
+    return;
+  }
+
+  const PASSKEY_KEY = "corsica-passkey-id";
 
   const lead = document.getElementById("gate-lead");
   const passwordForm = document.getElementById("gate-password-form");
