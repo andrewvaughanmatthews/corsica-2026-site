@@ -13,7 +13,7 @@ const CONFIG = {
   // Temporary toggle: set to false to skip the gate entirely (site opens
   // straight to the content, no password/Face ID prompt). Flip back to
   // true to restore the lock exactly as it was — nothing else changes.
-  GATE_ENABLED: false,
+  GATE_ENABLED: true,
 
   // Real numbers, from Matthieu's email. Keep the repo/hosting private if
   // that matters — the lock above only keeps out casual visitors.
