@@ -627,15 +627,12 @@ let suppressNavAutoScroll = false;
   if (!sections.length) return;
 
   function setActive(id) {
-    // Only toggles the highlight class — deliberately does NOT scroll the nav
-    // strip to follow it. That auto-scroll used to fire from the
-    // IntersectionObserver during natural page scrolling (i.e. while the
-    // user's finger was still on the screen), and any scroll it triggered on
-    // the nav — smooth or instant — competed with the real touch scroll and
-    // could visibly stall/bounce it on iOS.
     links.forEach((link) => {
       const active = link.getAttribute("href") === `#${id}`;
       link.classList.toggle("is-active", active);
+      if (active && !suppressNavAutoScroll) {
+        link.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+      }
     });
   }
 
@@ -654,11 +651,12 @@ let suppressNavAutoScroll = false;
 // ---- Back to top ----
 (function backToTop() {
   const btn = document.getElementById("back-to-top");
-  if (!btn) return;
-  window.addEventListener("scroll", () => {
-    btn.classList.toggle("is-visible", window.scrollY > 800);
+  const shell = document.getElementById("app-shell");
+  if (!btn || !shell) return;
+  shell.addEventListener("scroll", () => {
+    btn.classList.toggle("is-visible", shell.scrollTop > 800);
   });
-  btn.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+  btn.addEventListener("click", () => shell.scrollTo({ top: 0, behavior: "smooth" }));
 })();
 
 (function externalLinksFromHomeScreenApp() {
@@ -706,9 +704,9 @@ let suppressNavAutoScroll = false;
 })();
 
 (function anchorScrollFix() {
-  // Handles #anchor clicks ourselves (smooth, with sticky-nav-aware suppression
-  // of the scrollspy's own nav-highlight scroll) rather than relying on the
-  // browser's native jump, which doesn't coordinate with that at all.
+  // html/body are pinned (see #app-shell) so the browser's native "jump to
+  // #id" navigation has nothing to scroll — it updates the URL hash but
+  // never moves the visible content. Scroll the real container ourselves.
   function scrollToHash(hash, behavior) {
     if (!hash) return;
     const target = document.getElementById(hash.slice(1));
@@ -736,14 +734,16 @@ let suppressNavAutoScroll = false;
 })();
 
 (function tapTopNavToScrollTop() {
-  // The document scrolls natively again, so iOS's own "tap the status bar"
-  // gesture already scrolls to top. This just adds the same behaviour for
-  // tapping empty space in the nav bar itself (not an actual link).
+  // iOS's native "tap the status bar to scroll to top" only works when the
+  // document itself scrolls — since #app-shell is the real scroll container
+  // now, that gesture has nothing to act on. Tapping empty space in the top
+  // nav bar (not an actual link) is the closest equivalent we can offer.
   const nav = document.getElementById("topnav");
-  if (!nav) return;
+  const shell = document.getElementById("app-shell");
+  if (!nav || !shell) return;
   nav.addEventListener("click", (e) => {
     if (e.target.closest("a")) return;
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    shell.scrollTo({ top: 0, behavior: "smooth" });
   });
 })();
 
