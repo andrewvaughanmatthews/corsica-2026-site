@@ -651,12 +651,11 @@ let suppressNavAutoScroll = false;
 // ---- Back to top ----
 (function backToTop() {
   const btn = document.getElementById("back-to-top");
-  const shell = document.getElementById("app-shell");
-  if (!btn || !shell) return;
-  shell.addEventListener("scroll", () => {
-    btn.classList.toggle("is-visible", shell.scrollTop > 800);
+  if (!btn) return;
+  window.addEventListener("scroll", () => {
+    btn.classList.toggle("is-visible", window.scrollY > 800);
   });
-  btn.addEventListener("click", () => shell.scrollTo({ top: 0, behavior: "smooth" }));
+  btn.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
 })();
 
 (function externalLinksFromHomeScreenApp() {
@@ -704,9 +703,9 @@ let suppressNavAutoScroll = false;
 })();
 
 (function anchorScrollFix() {
-  // html/body are pinned (see #app-shell) so the browser's native "jump to
-  // #id" navigation has nothing to scroll — it updates the URL hash but
-  // never moves the visible content. Scroll the real container ourselves.
+  // Handles #anchor clicks ourselves (smooth, with sticky-nav-aware suppression
+  // of the scrollspy's own nav-highlight scroll) rather than relying on the
+  // browser's native jump, which doesn't coordinate with that at all.
   function scrollToHash(hash, behavior) {
     if (!hash) return;
     const target = document.getElementById(hash.slice(1));
@@ -734,16 +733,14 @@ let suppressNavAutoScroll = false;
 })();
 
 (function tapTopNavToScrollTop() {
-  // iOS's native "tap the status bar to scroll to top" only works when the
-  // document itself scrolls — since #app-shell is the real scroll container
-  // now, that gesture has nothing to act on. Tapping empty space in the top
-  // nav bar (not an actual link) is the closest equivalent we can offer.
+  // The document scrolls natively again, so iOS's own "tap the status bar"
+  // gesture already scrolls to top. This just adds the same behaviour for
+  // tapping empty space in the nav bar itself (not an actual link).
   const nav = document.getElementById("topnav");
-  const shell = document.getElementById("app-shell");
-  if (!nav || !shell) return;
+  if (!nav) return;
   nav.addEventListener("click", (e) => {
     if (e.target.closest("a")) return;
-    shell.scrollTo({ top: 0, behavior: "smooth" });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   });
 })();
 
