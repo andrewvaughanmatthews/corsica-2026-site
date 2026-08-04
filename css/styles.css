@@ -30,16 +30,12 @@ body {
   overflow-x: hidden;
 }
 
-/* The document itself scrolls again (not this wrapper) — that's what lets
-   iOS's native "tap the status bar to scroll to top" work, which needs
-   the real page to be the scrolling element. overflow-x: hidden above is
-   what contains the horizontal bounce — overscroll-behavior-x was tried
-   here too, but iOS Safari doesn't isolate it to one axis: it disables
-   momentum/rubber-band scrolling for the whole page, which is what made
-   vertical scrolling feel stuck/bouncy. */
-#app-shell {
-  overflow-x: hidden;
-}
+/* #app-shell is an inert leftover wrapper div — nothing sizes or scrolls it
+   any more (see html/body above). Deliberately no overflow rule here: since
+   it wraps the entire page, giving it any non-default overflow-x forces the
+   browser to compute overflow-y as auto too, which is enough to make some
+   Safari builds treat it as its own scroll container and fight the real
+   document scroll on first swipe. */
 
 h1, h2, h3 {
   font-family: var(--font);
