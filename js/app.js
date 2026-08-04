@@ -631,7 +631,12 @@ let suppressNavAutoScroll = false;
       const active = link.getAttribute("href") === `#${id}`;
       link.classList.toggle("is-active", active);
       if (active && !suppressNavAutoScroll) {
-        link.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+        // Instant, not smooth: this fires from the IntersectionObserver while
+        // the user may still be mid-swipe on the real page scroll. A second
+        // *smooth* animation starting on the nav here competes with that touch
+        // scroll and can visibly stall/bounce it on iOS — same class of bug as
+        // the nav-click case above, just triggered by natural scrolling.
+        link.scrollIntoView({ behavior: "auto", inline: "center", block: "nearest" });
       }
     });
   }
