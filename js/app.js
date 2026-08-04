@@ -50,16 +50,21 @@
 
   function maybeOfferFaceId() {
     if (platformAuthAvailable() && !localStorage.getItem(PASSKEY_KEY)) {
-      platformAuthAvailable()().then((available) => {
-        if (available) {
-          passwordForm.hidden = true;
-          faceIdBtn.hidden = true;
-          usePasswordLink.hidden = true;
-          enableFaceId.hidden = false;
-        } else {
-          closeGate();
-        }
-      });
+      PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable()
+        .then((available) => {
+          if (available) {
+            passwordForm.hidden = true;
+            faceIdBtn.hidden = true;
+            usePasswordLink.hidden = true;
+            enableFaceId.hidden = false;
+          } else {
+            closeGate();
+          }
+        })
+        // Some browsers (in-app webviews especially) expose the API but throw
+        // or reject when it's actually called — never leave someone stuck on
+        // the password screen because of that, just skip Face ID and let them in.
+        .catch(() => closeGate());
     } else {
       closeGate();
     }
