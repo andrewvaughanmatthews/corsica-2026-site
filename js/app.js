@@ -602,6 +602,13 @@
   document.getElementById("score-terra-minus").addEventListener("click", () => set("score-terra", terra, Math.max(0, --terraScore)));
 })();
 
+// Set while a deliberate #anchor jump is animating, so the scrollspy below
+// doesn't also fire its own horizontal nav scroll at the same time — two
+// competing smooth-scroll animations on real devices can visibly cut one of
+// them short, which is what made nav jumps look like they landed one
+// section early.
+let suppressNavAutoScroll = false;
+
 // ---- Scrollspy: highlight the current section in the top nav ----
 (function scrollspy() {
   const links = Array.from(document.querySelectorAll(".topnav__links a"));
@@ -616,7 +623,9 @@
     links.forEach((link) => {
       const active = link.getAttribute("href") === `#${id}`;
       link.classList.toggle("is-active", active);
-      if (active) link.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+      if (active && !suppressNavAutoScroll) {
+        link.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+      }
     });
   }
 
@@ -695,7 +704,12 @@
     if (!hash) return;
     const target = document.getElementById(hash.slice(1));
     if (!target) return;
+    suppressNavAutoScroll = true;
     target.scrollIntoView({ behavior, block: "start" });
+    window.clearTimeout(scrollToHash._t);
+    scrollToHash._t = window.setTimeout(() => {
+      suppressNavAutoScroll = false;
+    }, 1000);
   }
 
   document.addEventListener("click", (e) => {
@@ -710,5 +724,19 @@
   });
 
   if (location.hash) scrollToHash(location.hash, "auto");
+})();
+
+(function tapTopNavToScrollTop() {
+  // iOS's native "tap the status bar to scroll to top" only works when the
+  // document itself scrolls — since #app-shell is the real scroll container
+  // now, that gesture has nothing to act on. Tapping empty space in the top
+  // nav bar (not an actual link) is the closest equivalent we can offer.
+  const nav = document.getElementById("topnav");
+  const shell = document.getElementById("app-shell");
+  if (!nav || !shell) return;
+  nav.addEventListener("click", (e) => {
+    if (e.target.closest("a")) return;
+    shell.scrollTo({ top: 0, behavior: "smooth" });
+  });
 })();
 
