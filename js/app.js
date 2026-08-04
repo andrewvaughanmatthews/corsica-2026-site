@@ -627,17 +627,15 @@ let suppressNavAutoScroll = false;
   if (!sections.length) return;
 
   function setActive(id) {
+    // Only toggles the highlight class — deliberately does NOT scroll the nav
+    // strip to follow it. That auto-scroll used to fire from the
+    // IntersectionObserver during natural page scrolling (i.e. while the
+    // user's finger was still on the screen), and any scroll it triggered on
+    // the nav — smooth or instant — competed with the real touch scroll and
+    // could visibly stall/bounce it on iOS.
     links.forEach((link) => {
       const active = link.getAttribute("href") === `#${id}`;
       link.classList.toggle("is-active", active);
-      if (active && !suppressNavAutoScroll) {
-        // Instant, not smooth: this fires from the IntersectionObserver while
-        // the user may still be mid-swipe on the real page scroll. A second
-        // *smooth* animation starting on the nav here competes with that touch
-        // scroll and can visibly stall/bounce it on iOS — same class of bug as
-        // the nav-click case above, just triggered by natural scrolling.
-        link.scrollIntoView({ behavior: "auto", inline: "center", block: "nearest" });
-      }
     });
   }
 
