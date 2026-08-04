@@ -18,7 +18,6 @@ html {
   scroll-behavior: smooth;
   background: var(--bg);
   overflow-x: hidden;
-  overscroll-behavior-x: none;
 }
 
 body {
@@ -29,13 +28,15 @@ body {
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
-  overscroll-behavior-x: none;
 }
 
 /* The document itself scrolls again (not this wrapper) — that's what lets
    iOS's native "tap the status bar to scroll to top" work, which needs
-   the real page to be the scrolling element. The horizontal drag/rubber-
-   band bounce is instead suppressed via overscroll-behavior-x above. */
+   the real page to be the scrolling element. overflow-x: hidden above is
+   what contains the horizontal bounce — overscroll-behavior-x was tried
+   here too, but iOS Safari doesn't isolate it to one axis: it disables
+   momentum/rubber-band scrolling for the whole page, which is what made
+   vertical scrolling feel stuck/bouncy. */
 #app-shell {
   overflow-x: hidden;
 }
