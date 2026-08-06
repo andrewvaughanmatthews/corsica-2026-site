@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>The Big Fat Lebanese-Welsh Holiday</title>
-<link rel="stylesheet" href="css/styles.css?v=7">
+<link rel="stylesheet" href="css/styles.css?v=8">
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#ffffff">
 <link rel="icon" href="icons/favicon-32.png" sizes="32x32">
@@ -651,6 +651,19 @@
     <summary>Is there WiFi?</summary>
     <p>Yes — network [WIFI NETWORK NAME HERE], password [WIFI PASSWORD HERE].</p>
   </details>
+
+  <div id="faq-dynamic"></div>
+
+  <div class="panel" id="faq-add-panel" style="margin-top:20px;">
+    <p class="muted" style="margin-bottom:10px;">Got a question that's not covered above? Add it here — everyone will see the question and answer, no laptop needed.</p>
+    <input type="text" id="faq-question-input" placeholder="Question" style="width:100%; margin-bottom:8px; padding:10px 14px; border-radius:10px; border:1px solid var(--line); background:var(--bg); color:var(--ink); font-size:0.95rem;">
+    <textarea id="faq-answer-input" placeholder="Answer" rows="2" style="width:100%; margin-bottom:8px; padding:10px 14px; border-radius:10px; border:1px solid var(--line); background:var(--bg); color:var(--ink); font-size:0.95rem; font-family:inherit; resize:vertical;"></textarea>
+    <div class="btn-row">
+      <input type="text" id="faq-name-input" placeholder="Your name" style="flex:1; min-width:120px; padding:10px 14px; border-radius:10px; border:1px solid var(--line); background:var(--bg); color:var(--ink); font-size:0.95rem;">
+      <button class="btn" id="faq-add-submit">Post</button>
+    </div>
+    <p class="muted" id="faq-add-status" style="margin:8px 0 0;"></p>
+  </div>
 </section>
 
 <!-- ===== Forum ===== -->
@@ -719,6 +732,6 @@
 </div>
 
 <script src="js/config.js?v=2"></script>
-<script src="js/app.js?v=4"></script>
+<script src="js/app.js?v=5"></script>
 </body>
 </html>

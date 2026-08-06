@@ -366,6 +366,109 @@
   load();
 })();
 
+// ---- Family-added FAQs (same Apps Script backend as the forum) ----
+(function faqSubmissions() {
+  const list = document.getElementById("faq-dynamic");
+  const questionInput = document.getElementById("faq-question-input");
+  const answerInput = document.getElementById("faq-answer-input");
+  const nameInput = document.getElementById("faq-name-input");
+  const submitBtn = document.getElementById("faq-add-submit");
+  const status = document.getElementById("faq-add-status");
+  if (!list || !CONFIG.SHEETS_API_URL) return;
+
+  const NAME_KEY = "forum-my-name";
+  nameInput.value = localStorage.getItem(NAME_KEY) || "";
+
+  function escapeHtml(s) {
+    const div = document.createElement("div");
+    div.textContent = s || "";
+    return div.innerHTML;
+  }
+
+  function myName() {
+    return (localStorage.getItem(NAME_KEY) || "").trim().toLowerCase();
+  }
+
+  function render(rows) {
+    if (!rows.length) {
+      list.innerHTML = "";
+      return;
+    }
+    list.innerHTML = rows.map((r) => {
+      const canDelete = myName() && r.name && r.name.trim().toLowerCase() === myName();
+      return `
+        <details data-row="${r.row}">
+          <summary>${escapeHtml(r.question)}</summary>
+          <p>${escapeHtml(r.answer)}</p>
+          <p class="muted" style="margin-top:6px;">Added by ${escapeHtml(r.name || "someone")}${canDelete ? ` &middot; <button type="button" class="faq-delete" data-row="${r.row}" style="border:none; background:none; color:var(--ink-soft); text-decoration:underline; cursor:pointer; padding:0; font-size:inherit;">Delete</button>` : ""}</p>
+        </details>`;
+    }).join("");
+
+    list.querySelectorAll(".faq-delete").forEach((btn) => {
+      btn.addEventListener("click", () => deleteFaq(btn.dataset.row));
+    });
+  }
+
+  function load() {
+    fetch(`${CONFIG.SHEETS_API_URL}?type=faq`)
+      .then((r) => r.json())
+      .then(render)
+      .catch(() => {});
+  }
+
+  function deleteFaq(row) {
+    const name = localStorage.getItem(NAME_KEY) || "";
+    fetch(CONFIG.SHEETS_API_URL, {
+      method: "POST",
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body: JSON.stringify({ action: "delete_faq", row: Number(row), name }),
+    })
+      .then((r) => r.json())
+      .then((res) => { if (res.ok) load(); })
+      .catch(() => {});
+  }
+
+  submitBtn.addEventListener("click", () => {
+    const question = questionInput.value.trim();
+    const answer = answerInput.value.trim();
+    let name = nameInput.value.trim();
+    if (!question || !answer) {
+      status.textContent = "Add both a question and an answer.";
+      return;
+    }
+    if (!name) {
+      status.textContent = "Add your name so people know who posted it.";
+      return;
+    }
+    localStorage.setItem(NAME_KEY, name);
+    submitBtn.disabled = true;
+    status.textContent = "Posting…";
+    fetch(CONFIG.SHEETS_API_URL, {
+      method: "POST",
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body: JSON.stringify({ action: "add_faq", question, answer, name }),
+    })
+      .then((r) => r.json())
+      .then((res) => {
+        submitBtn.disabled = false;
+        if (res.ok) {
+          questionInput.value = "";
+          answerInput.value = "";
+          status.textContent = "Posted.";
+          load();
+        } else {
+          status.textContent = "Couldn't post — try again.";
+        }
+      })
+      .catch(() => {
+        submitBtn.disabled = false;
+        status.textContent = "Couldn't post — try again.";
+      });
+  });
+
+  load();
+})();
+
 // ---- Editable itinerary (same Apps Script backend as the forum) ----
 (function itinerary() {
   const days = Array.from(document.querySelectorAll(".timeline .day"));
