@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>The Big Fat Lebanese-Welsh Holiday</title>
-<link rel="stylesheet" href="css/styles.css?v=5">
+<link rel="stylesheet" href="css/styles.css?v=6">
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#ffffff">
 <link rel="icon" href="icons/favicon-32.png" sizes="32x32">
@@ -44,6 +44,7 @@
 <nav class="topnav" id="topnav">
   <a href="#hero" class="topnav__brand">Corsica '26</a>
   <div class="topnav__links">
+    <a href="#weather">Weather</a>
     <a href="#logistics">Logistics</a>
     <a href="#villas">Villas</a>
     <a href="#roster">Roster</a>
@@ -76,6 +77,15 @@
   <p class="meta">Sainte-Lucie-de-Porto-Vecchio, Corsica</p>
 </div>
 </header>
+
+<!-- ===== Weather ===== -->
+<section id="weather">
+  <span class="eyebrow">Weather</span>
+  <h2>Sainte-Lucie-de-Porto-Vecchio</h2>
+  <div class="weather-row" id="weather-daily"><p class="muted">Loading forecast…</p></div>
+  <div class="weather-row" id="weather-hourly"></div>
+  <p class="muted" id="weather-status"></p>
+</section>
 
 <!-- ===== Add to Home Screen guide ===== -->
 <div class="a2hs-wrap">
@@ -709,6 +719,6 @@
 </div>
 
 <script src="js/config.js?v=2"></script>
-<script src="js/app.js?v=3"></script>
+<script src="js/app.js?v=4"></script>
 </body>
 </html>

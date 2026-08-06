@@ -519,6 +519,38 @@ details p { margin: 12px 0 0; color: var(--ink-soft); }
 }
 .room-config-item--text p { color: var(--ink-soft); }
 
+/* ---------- Weather ---------- */
+.weather-row {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding-bottom: 4px;
+  margin-bottom: 14px;
+}
+.weather-row::-webkit-scrollbar { display: none; }
+.weather-card {
+  flex: 0 0 auto;
+  min-width: 62px;
+  background: var(--panel);
+  border-radius: 14px;
+  padding: 12px 10px;
+  text-align: center;
+}
+.weather-card__label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--ink-soft);
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+.weather-card__icon { font-size: 1.5rem; margin-bottom: 6px; line-height: 1; }
+.weather-card__temp { font-size: 0.85rem; font-weight: 600; white-space: nowrap; }
+.weather-card__temp-lo { color: var(--ink-soft); font-weight: 400; }
+
 /* ---------- Timeline ---------- */
 .timeline { display: flex; overflow-x: auto; overflow-y: hidden; gap: 1px; padding-bottom: 8px; -webkit-overflow-scrolling: touch; background: var(--line); border-radius: var(--radius); }
 .timeline .day {

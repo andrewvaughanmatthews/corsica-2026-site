@@ -509,6 +509,93 @@
   setInterval(render, 60000);
 })();
 
+// ---- Weather (Open-Meteo — free, no API key, CORS-friendly) ----
+(function weather() {
+  const dailyRow = document.getElementById("weather-daily");
+  const hourlyRow = document.getElementById("weather-hourly");
+  const status = document.getElementById("weather-status");
+  if (!dailyRow || !hourlyRow) return;
+
+  // Sainte-Lucie-de-Porto-Vecchio, where the villas are.
+  const LAT = 41.699, LON = 9.351;
+
+  const ICONS = {
+    0: "☀️", 1: "🌤️", 2: "⛅", 3: "☁️",
+    45: "🌫️", 48: "🌫️",
+    51: "🌦️", 53: "🌦️", 55: "🌦️",
+    56: "🌧️", 57: "🌧️",
+    61: "🌧️", 63: "🌧️", 65: "🌧️",
+    66: "🌧️", 67: "🌧️",
+    71: "❄️", 73: "❄️", 75: "❄️", 77: "❄️",
+    80: "🌦️", 81: "🌦️", 82: "⛈️",
+    85: "🌨️", 86: "🌨️",
+    95: "⛈️", 96: "⛈️", 99: "⛈️",
+  };
+  const NIGHT_ICONS = { 0: "🌙", 1: "🌙", 2: "☁️" };
+  function iconFor(code, isDay) {
+    if (isDay === 0 && NIGHT_ICONS[code]) return NIGHT_ICONS[code];
+    return ICONS[code] || "🌡️";
+  }
+
+  function hourLabel(hour) {
+    const period = hour < 12 ? "am" : "pm";
+    let h12 = hour % 12;
+    if (h12 === 0) h12 = 12;
+    return `${h12}${period}`;
+  }
+
+  // "Now" in Corsica's own timezone, regardless of the visitor's — the
+  // forecast is for the destination, not wherever it's being viewed from.
+  function nowInParis() {
+    return new Date(new Date().toLocaleString("en-US", { timeZone: "Europe/Paris" }));
+  }
+
+  const url = `https://api.open-meteo.com/v1/forecast?latitude=${LAT}&longitude=${LON}` +
+    `&hourly=temperature_2m,weathercode,is_day&daily=weathercode,temperature_2m_max,temperature_2m_min` +
+    `&timezone=Europe%2FParis&forecast_days=10`;
+
+  fetch(url)
+    .then((r) => r.json())
+    .then((data) => {
+      if (!data.daily || !data.hourly) throw new Error("Unexpected response");
+
+      dailyRow.innerHTML = data.daily.time.map((dateStr, i) => {
+        const d = new Date(`${dateStr}T12:00:00`);
+        const label = i === 0 ? "Today" : d.toLocaleDateString(undefined, { weekday: "short" });
+        const hi = Math.round(data.daily.temperature_2m_max[i]);
+        const lo = Math.round(data.daily.temperature_2m_min[i]);
+        return `
+          <div class="weather-card">
+            <div class="weather-card__label">${label}</div>
+            <div class="weather-card__icon">${iconFor(data.daily.weathercode[i])}</div>
+            <div class="weather-card__temp">${hi}&deg;<span class="weather-card__temp-lo"> ${lo}&deg;</span></div>
+          </div>`;
+      }).join("");
+
+      const now = nowInParis();
+      const todayStr = data.hourly.time[0].slice(0, 10);
+      const currentHour = now.getHours();
+      const hourCards = [];
+      data.hourly.time.forEach((t, i) => {
+        if (!t.startsWith(todayStr)) return;
+        const hour = Number(t.slice(11, 13));
+        if (hour < currentHour) return;
+        const label = hour === currentHour ? "Now" : hourLabel(hour);
+        hourCards.push(`
+          <div class="weather-card">
+            <div class="weather-card__label">${label}</div>
+            <div class="weather-card__icon">${iconFor(data.hourly.weathercode[i], data.hourly.is_day[i])}</div>
+            <div class="weather-card__temp">${Math.round(data.hourly.temperature_2m[i])}&deg;</div>
+          </div>`);
+      });
+      hourlyRow.innerHTML = hourCards.join("");
+    })
+    .catch(() => {
+      dailyRow.innerHTML = "";
+      if (status) status.textContent = "Couldn't load the forecast right now — try reloading.";
+    });
+})();
+
 // ---- Contacts directory ----
 (function contacts() {
   const wrap = document.getElementById("contacts-grid");
