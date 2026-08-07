@@ -653,9 +653,12 @@
     return new Date(new Date().toLocaleString("en-US", { timeZone: "Europe/Paris" }));
   }
 
+  // ECMWF IFS — the European weather agency's model, generally the most
+  // accurate available for Europe and one of the inputs Apple's own Weather
+  // app blends in, without needing a paid WeatherKit account.
   const url = `https://api.open-meteo.com/v1/forecast?latitude=${LAT}&longitude=${LON}` +
     `&hourly=temperature_2m,weathercode,is_day&daily=weathercode,temperature_2m_max,temperature_2m_min` +
-    `&timezone=Europe%2FParis&forecast_days=10`;
+    `&timezone=Europe%2FParis&forecast_days=10&models=ecmwf_ifs025`;
 
   fetch(url)
     .then((r) => r.json())
